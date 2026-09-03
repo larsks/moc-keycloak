@@ -1,7 +1,8 @@
 # OpenTofu files
 .terraform/
-*.tfstate
-*.tfstate.backup
+*.tfstate*
 
-# Variables & Secrets
-secret.tfvars
+# Local testing
+backend_override.tf
+local_test.auto.tfvars
+imports.tf.disabled
