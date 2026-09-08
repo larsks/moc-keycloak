@@ -7,16 +7,12 @@ locals {
       openshift_redirect_uri = "https://oauth-openshift.apps.infra.oac.ocp.massopen.cloud/oauth2callback/mocsso"
       client_secret_name     = "cluster/oac-prod-infra/keycloak-oidc"
       keycloak_client_uuid   = "oac-prod-infra"
-      secret_arn             = "arn:aws:secretsmanager:us-east-1:574733721584:secret:cluster/oac-prod-infra/keycloak-oidc-Y0zXED"
-      secret_version_id      = "c3b5757f-b95e-458a-8325-30292a02c86b"
     }
     oac_prod_workload0 = {
       cluster_name           = "oac-prod-workload0"
       openshift_redirect_uri = "https://oauth-oac-prod-workload0.hcp.oac.massopen.cloud:443/oauth2callback/mocsso"
       client_secret_name     = "cluster/oac-prod-infra/hostedcluster/oac-prod-workload0/keycloak-oidc"
       keycloak_client_uuid   = "oac-prod-workload0"
-      secret_arn             = "arn:aws:secretsmanager:us-east-1:574733721584:secret:cluster/oac-prod-infra/hostedcluster/oac-prod-workload0/keycloak-oidc-QZ22Hu"
-      secret_version_id      = "87e647cd-8470-44da-8ad1-d8655af1e1b0"
     }
   }
 }
