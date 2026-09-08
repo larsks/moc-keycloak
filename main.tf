@@ -14,6 +14,12 @@ locals {
       client_secret_name     = "cluster/oac-prod-infra/hostedcluster/oac-prod-workload0/keycloak-oidc"
       keycloak_client_uuid   = "oac-prod-workload0"
     }
+    oac_dev_workload0 = {
+      cluster_name           = "oac-dev-workload0"
+      openshift_redirect_uri = "https://oauth-oac-dev-workload0.hcp.oac.int.massopen.cloud:443/oauth2callback/mocsso"
+      client_secret_name     = "cluster/oac-dev-infra/hostedcluster/oac-dev-workload0/keycloak-oidc"
+      keycloak_client_uuid   = "oac-dev-workload0"
+    }
   }
 }
 
