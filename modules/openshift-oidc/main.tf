@@ -99,3 +99,20 @@ resource "aws_secretsmanager_secret_version" "this" {
     client_secret = keycloak_openid_client.this.client_secret
   })
 }
+
+resource "keycloak_openid_client_default_scopes" "this" {
+  realm_id  = var.realm_id
+  client_id = keycloak_openid_client.this.id
+
+  default_scopes = concat([
+    "service_account",
+    "profile",
+  ], var.additional_scope_names)
+}
+
+resource "keycloak_openid_client_optional_scopes" "this" {
+  realm_id  = var.realm_id
+  client_id = keycloak_openid_client.this.id
+
+  optional_scopes = []
+}

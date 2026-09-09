@@ -23,3 +23,9 @@ variable "realm_id" {
   type        = string
   description = "Realm that owns this OIDC resources"
 }
+
+variable "additional_scope_names" {
+  type        = list(string)
+  description = "List of additional scopes to associate with the client"
+  default     = []
+}

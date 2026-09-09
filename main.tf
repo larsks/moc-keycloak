@@ -26,4 +26,5 @@ module "openshift_oidc" {
   client_secret_name     = each.value.client_secret_name
   realm_id               = keycloak_realm.moc.id
   use_secrets_manager    = var.use_secrets_manager
+  additional_scope_names = [keycloak_openid_client_scope.groups.name, keycloak_openid_client_scope.openid.name]
 }
