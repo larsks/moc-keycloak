@@ -1,5 +1,8 @@
 KEYCLOAK_HTTP_PORT=8080
 KEYCLOAK_HEALTH_PORT=9000
+COMPOSE_PROJECT_NAME=moc-keycloak
+
+export KEYCLOAK_HTTP_PORT KEYCLOAK_HEALTH_PORT COMPOSE_PROJECT_NAME
 
 all:
 	@echo "Run one of `make init-local` or `make init-remote`"
@@ -33,8 +36,6 @@ init-remote:
 	echo no | tofu init -reconfigure
 
 setup:
-	KEYCLOAK_HTTP_PORT=$(KEYCLOAK_HTTP_PORT) \
-	KEYCLOAK_HEALTH_PORT=$(KEYCLOAK_HEALTH_PORT) \
 	docker compose up -d
 
 wait:
