@@ -39,6 +39,15 @@ resource "keycloak_authentication_subflow" "conditional_organization" {
   provider_id       = "basic-flow"
   requirement       = "CONDITIONAL"
   priority          = 60
+
+  # Keycloak has a race condition when multiple resources write concurrently to
+  # the same parent flow's execution list: the GET that follows a POST can NPE
+  # because the inner-flow reference isn't yet visible. Serialise creation of
+  # top-level siblings within cilogon_first_broker_login to avoid this.
+  depends_on = [
+    keycloak_authentication_execution.review_profile,
+    keycloak_authentication_subflow.user_creation_or_linking,
+  ]
 }
 
 # -- User creation or linking -------------------------------------------------
