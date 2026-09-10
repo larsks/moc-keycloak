@@ -45,12 +45,18 @@ teardown:
 
 reset: teardown setup
 
-bootstrap: teardown setup wait init-local apply
+bootstrap: teardown setup init-local apply
 
-apply: validate
-	tofu apply -auto-approve -var first_broker_login_flow='first broker login' -target keycloak_realm.moc
-	tofu apply -auto-approve -var first_broker_login_flow='first broker login'
-	tofu apply -auto-approve
+apply: wait validate
+	@rm -f stage1.log stage2.log stage3.log
+	@echo "Applying configuration..."
+	@echo "  stage 1..."
+	tofu apply -no-color -auto-approve -var first_broker_login_flow='first broker login' -target keycloak_realm.moc > stage1.log 2>&1
+	@echo "  stage 2..."
+	tofu apply -no-color -auto-approve -var first_broker_login_flow='first broker login' > stage2.log 2>&1
+	@echo "  stage 3..."
+	tofu apply -no-color -auto-approve > stage3.log 2>&1
+	@echo "All done."
 
 validate:
 	tofu validate
