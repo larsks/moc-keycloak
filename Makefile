@@ -1,4 +1,5 @@
-.PHONY: init-local init-remote all
+KEYCLOAK_HTTP_PORT=8080
+KEYCLOAK_HEALTH_PORT=9000
 
 all:
 	@echo "Run one of `make init-local` or `make init-remote`"
@@ -12,7 +13,7 @@ terraform {
 endef
 
 define VARS_LOCAL
-KEYCLOAK_URL="http://localhost:8080"
+KEYCLOAK_URL="http://localhost:$(KEYCLOAK_HTTP_PORT)"
 KEYCLOAK_USER_NAME="admin"
 KEYCLOAK_PASSWORD="admin"
 KEYCLOAK_CLIENT_ID="admin-cli"
@@ -32,11 +33,13 @@ init-remote:
 	echo no | tofu init -reconfigure
 
 setup:
+	KEYCLOAK_HTTP_PORT=$(KEYCLOAK_HTTP_PORT) \
+	KEYCLOAK_HEALTH_PORT=$(KEYCLOAK_HEALTH_PORT) \
 	docker compose up -d
 
 wait:
 	@echo "Waiting for keycloak..."; \
-		until curl -o /dev/null -sf http://localhost:9000/health; do sleep 1; done; \
+		until curl -o /dev/null -sf http://localhost:$(KEYCLOAK_HEALTH_PORT)/health; do sleep 1; done; \
 		echo "Keycloak is ready."
 
 teardown:
@@ -60,3 +63,5 @@ apply: wait validate
 
 validate:
 	tofu validate
+
+.PHONY: init-local init-remote all setup teardown apply wait validate

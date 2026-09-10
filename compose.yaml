@@ -27,8 +27,8 @@ services:
       # Expose /health/ready etc. on the management port (9000)
       KC_HEALTH_ENABLED: "true"
     ports:
-      - "8080:8080" # HTTP (admin console + realm endpoints)
-      - "9000:9000" # management (health/metrics)
+      - "${KEYCLOAK_HTTP_PORT}:8080" # HTTP (admin console + realm endpoints)
+      - "${KEYCLOAK_HEALTH_PORT}:9000" # management (health/metrics)
     depends_on:
       postgres:
         condition: service_healthy
